@@ -2,7 +2,7 @@ for i, v in pairs(getconnections(game:GetService("ScriptContext").Error)) do
    v:Disable()
 end
 
-local ws, rs = game:GetService('Workspace'), game:GetService('RunService')
+local ws, rs,lp = game:GetService('Workspace'), game:GetService('RunService'),game:GetService('Players').LocalPlayer
 local names = {'MeshPart', 'UnionOperation', 'Part'}
 local trinket_dep = {}
 
@@ -30,13 +30,12 @@ ws.ChildAdded:Connect(onChildAdded)
 
 function potential_trinkets()
 	local dist = 10
-	local lp = game:GetService('Players').LocalPlayer
 	if not (ws and rs and lp) then
 		lp:Kick('Error: Missing required services')
 		return
 	end
 	local hrpp = lp.Character and lp.Character:FindFirstChild('HumanoidRootPart')
-	if not hrpp and lp.Character and lp.Character:FindFirstChild('Humanoid') and lp.Character.Humanoid.Health ~= 0 then
+	if not hrpp and lp.Character:FindFirstChild('Humanoid') and lp.Character.Humanoid.Health ~= 0 then
 		lp:Kick('Error: HumanoidRootPart not found')
 	end
 	local function runner()
